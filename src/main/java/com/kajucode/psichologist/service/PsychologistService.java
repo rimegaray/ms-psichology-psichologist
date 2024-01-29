@@ -1,5 +1,8 @@
 package com.kajucode.psichologist.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.kajucode.psichologist.repository.dao.PsychologistDao;
@@ -17,5 +20,12 @@ public class PsychologistService {
 	public PsychologistDto addPatient (PsychologistDto psychologistDto) {
         PsychologistEntity patientResult = psychologistDao.save(ServiceConverter.convertPsychologistDtoToPsychologistEnity(psychologistDto));
         return ServiceConverter.convertPsychologistEntityToPsychologistDto(patientResult);
+    }
+	
+	public List<PsychologistDto> getAll() {
+        List<PsychologistEntity> patientEntities = psychologistDao.findAll();
+        return patientEntities.stream()
+                .map(ServiceConverter::convertPsychologistEntityToPsychologistDto)
+                .collect(Collectors.toList());
     }
 }
