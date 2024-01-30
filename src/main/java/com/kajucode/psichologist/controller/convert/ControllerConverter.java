@@ -1,6 +1,7 @@
 package com.kajucode.psichologist.controller.convert;
 
 import com.kajucode.psichologist.controller.dto.PsychologistResponse;
+import com.kajucode.psichologist.controller.dto.PsychologistUpdateRequest;
 import com.kajucode.psichologist.repository.dto.PsychologistDto;
 
 import lombok.experimental.UtilityClass;
@@ -20,4 +21,15 @@ public class ControllerConverter {
 									.build();
 
 	}
+	public PsychologistDto convertPatientUpdatRequestToPatientDto (PsychologistUpdateRequest psychologistUpdateRequest) {
+        return PsychologistDto.builder().fullName(psychologistUpdateRequest.getFullName())
+				        			.dni(psychologistUpdateRequest.getDni())
+				        			.age(psychologistUpdateRequest.getAge())
+				        			.contactNumber(psychologistUpdateRequest.getContactNumber())
+				        			.address(psychologistUpdateRequest.getAddress())
+				        			.email(psychologistUpdateRequest.getEmail())
+				        			.contractDate(psychologistUpdateRequest.getContractDate())
+				        			.specialty(psychologistUpdateRequest.getSpecialty())
+				        			.build();
+    }
 }
