@@ -56,8 +56,8 @@ public class PsychologistController {
     }
 	
 	@PutMapping("/{id}")
-    public PsychologistResponse updatePsychologist(@PathVariable int id, @RequestBody PsychologistUpdateRequest patientUpdateRequest) {
-		PsychologistDto psychologistDto = ControllerConverter.convertPatientUpdatRequestToPatientDto(patientUpdateRequest);
+    public PsychologistResponse updatePsychologist(@PathVariable int id, @RequestBody PsychologistUpdateRequest psychologistUpdateRequest) {
+		PsychologistDto psychologistDto = ControllerConverter.convertPatientUpdatRequestToPatientDto(psychologistUpdateRequest);
     	return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistService.updatePsychologist(id, psychologistDto));
     }
 }
