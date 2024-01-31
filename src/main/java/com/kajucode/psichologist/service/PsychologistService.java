@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.kajucode.psichologist.repository.dao.PsychologistDao;
-import com.kajucode.psichologist.repository.dto.PsychologistDto;
 import com.kajucode.psichologist.repository.entity.PsychologistEntity;
 import com.kajucode.psichologist.service.convert.ServiceConverter;
+import com.kajucode.psichologist.service.dto.PsychologistDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,7 +31,7 @@ public class PsychologistService {
                 .collect(Collectors.toList());
     }
 	
-	public PsychologistDto getPsychologisttById(int pychologistId) {
+	public PsychologistDto getPsychologistById(int pychologistId) {
 		PsychologistEntity existingPsychologist = psychologistDao.findById(pychologistId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Psicologo no encontrado"));
 		return ServiceConverter.convertPsychologistEntityToPsychologistDto(existingPsychologist); 

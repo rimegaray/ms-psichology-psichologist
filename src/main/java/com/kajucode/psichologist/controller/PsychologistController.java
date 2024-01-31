@@ -18,8 +18,8 @@ import com.kajucode.psichologist.controller.convert.ControllerConverter;
 import com.kajucode.psichologist.controller.dto.PsychologistCreationRequest;
 import com.kajucode.psichologist.controller.dto.PsychologistResponse;
 import com.kajucode.psichologist.controller.dto.PsychologistUpdateRequest;
-import com.kajucode.psichologist.repository.dto.PsychologistDto;
 import com.kajucode.psichologist.service.PsychologistService;
+import com.kajucode.psichologist.service.dto.PsychologistDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,7 +53,7 @@ public class PsychologistController {
 	
 	@GetMapping("/{id}")
     public PsychologistResponse getPsychologistById(@PathVariable int id) {
-        return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistService.getPsychologisttById(id));
+        return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistService.getPsychologistById(id));
     }
 	
 	@PutMapping("/{id}")

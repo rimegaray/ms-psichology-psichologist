@@ -2,7 +2,7 @@ package com.kajucode.psichologist.controller.convert;
 
 import com.kajucode.psichologist.controller.dto.PsychologistResponse;
 import com.kajucode.psichologist.controller.dto.PsychologistUpdateRequest;
-import com.kajucode.psichologist.repository.dto.PsychologistDto;
+import com.kajucode.psichologist.service.dto.PsychologistDto;
 
 import lombok.experimental.UtilityClass;
 

@@ -1,8 +1,8 @@
 package com.kajucode.psichologist.service.convert;
 
 
-import com.kajucode.psichologist.repository.dto.PsychologistDto;
 import com.kajucode.psichologist.repository.entity.PsychologistEntity;
+import com.kajucode.psichologist.service.dto.PsychologistDto;
 
 import lombok.experimental.UtilityClass;
 

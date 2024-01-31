@@ -1,4 +1,4 @@
-package com.kajucode.psichologist.repository.dto;
+package com.kajucode.psichologist.service.dto;
 
 import java.util.Date;
 
