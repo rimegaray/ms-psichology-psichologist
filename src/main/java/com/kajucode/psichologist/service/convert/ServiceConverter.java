@@ -20,7 +20,7 @@ public class ServiceConverter {
 				.specialty(psychologistEntity.getSpecialty())
 				.build();
 	}
-	public PsychologistEntity convertPsychologistDtoToPsychologistEnity (PsychologistDto psychologistDto) {
+	public PsychologistEntity convertPsychologistDtoToPsychologistEntity (PsychologistDto psychologistDto) {
 		PsychologistEntity psychologistEntity = new PsychologistEntity();
         psychologistEntity.setFullName(psychologistDto.getFullName());
         psychologistEntity.setDni(psychologistDto.getDni());

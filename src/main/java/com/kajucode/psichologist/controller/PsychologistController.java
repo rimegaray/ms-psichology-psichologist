@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,5 +60,10 @@ public class PsychologistController {
     public PsychologistResponse updatePsychologist(@PathVariable int id, @RequestBody PsychologistUpdateRequest psychologistUpdateRequest) {
 		PsychologistDto psychologistDto = ControllerConverter.convertPatientUpdatRequestToPatientDto(psychologistUpdateRequest);
     	return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistService.updatePsychologist(id, psychologistDto));
+    }
+	@DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePsychologist(@PathVariable int idPsychologist) {
+        psychologistService.deletePsychologist(idPsychologist);
     }
 }

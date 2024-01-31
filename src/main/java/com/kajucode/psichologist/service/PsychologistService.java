@@ -20,7 +20,7 @@ public class PsychologistService {
 	private final PsychologistDao psychologistDao;
 	
 	public PsychologistDto addPsychologist (PsychologistDto psychologistDto) {
-        PsychologistEntity psychologistResult = psychologistDao.save(ServiceConverter.convertPsychologistDtoToPsychologistEnity(psychologistDto));
+        PsychologistEntity psychologistResult = psychologistDao.save(ServiceConverter.convertPsychologistDtoToPsychologistEntity(psychologistDto));
         return ServiceConverter.convertPsychologistEntityToPsychologistDto(psychologistResult);
     }
 	
@@ -33,11 +33,12 @@ public class PsychologistService {
 	
 	public PsychologistDto getPsychologisttById(int pychologistId) {
 		PsychologistEntity existingPsychologist = psychologistDao.findById(pychologistId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente no encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Psicologo no encontrado"));
 		return ServiceConverter.convertPsychologistEntityToPsychologistDto(existingPsychologist); 
     }
 	public PsychologistDto updatePsychologist(int pychologistId, PsychologistDto psychologistDto) {
-		PsychologistEntity existingPsychologist = ServiceConverter.convertPsychologistDtoToPsychologistEnity(getPsychologisttById(pychologistId));
+		PsychologistEntity existingPsychologist = psychologistDao.findById(pychologistId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Psicologo no encontrado"));
         
         existingPsychologist.setFullName(psychologistDto.getFullName());
         existingPsychologist.setDni(psychologistDto.getDni());
@@ -49,5 +50,8 @@ public class PsychologistService {
         existingPsychologist.setSpecialty(psychologistDto.getSpecialty());
      
         return ServiceConverter.convertPsychologistEntityToPsychologistDto(psychologistDao.save(existingPsychologist));
+    }
+	public void deletePsychologist (int idPsychologist) {
+		psychologistDao.deleteById(idPsychologist);
     }
 }
