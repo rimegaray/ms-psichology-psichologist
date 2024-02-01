@@ -31,15 +31,15 @@ public class PsychologistController {
 
 	@PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PsychologistResponse addPsychologist (@RequestBody PsychologistCreationRequest patientRequest) {
-    	PsychologistDto newPsychologistDto = PsychologistDto.builder().fullName(patientRequest.getFullName())
-													.dni(patientRequest.getDni())
-													.age(patientRequest.getAge())
-													.contactNumber(patientRequest.getContactNumber())
-													.address(patientRequest.getAddress())
-													.email(patientRequest.getEmail())
-													.contractDate(patientRequest.getContractDate())
-													.specialty(patientRequest.getSpecialty())
+    public PsychologistResponse addPsychologist (@RequestBody PsychologistCreationRequest psychologistCreationRequest) {
+    	PsychologistDto newPsychologistDto = PsychologistDto.builder().fullName(psychologistCreationRequest.getFullName())
+													.dni(psychologistCreationRequest.getDni())
+													.age(psychologistCreationRequest.getAge())
+													.contactNumber(psychologistCreationRequest.getContactNumber())
+													.address(psychologistCreationRequest.getAddress())
+													.email(psychologistCreationRequest.getEmail())
+													.contractDate(psychologistCreationRequest.getContractDate())
+													.specialty(psychologistCreationRequest.getSpecialty())
 													.build();
     	return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistService.addPsychologist(newPsychologistDto));
     } 
