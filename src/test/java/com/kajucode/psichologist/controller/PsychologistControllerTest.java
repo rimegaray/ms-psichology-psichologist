@@ -40,7 +40,6 @@ public class PsychologistControllerTest {
     public void shouldGetPsychologistByIdReturnPatientResponseWhenServiceReturnPsychologistDto() {
         // Precondiciones
         int patientId = 1;
-        byte[] myFileTest = new byte[10];
         Date date = new Date("12/01/24");
         
         // Configurar el mock del servicio para devolver un paciente simulado
