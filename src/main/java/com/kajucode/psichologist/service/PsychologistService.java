@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class PsychologistService {
+public class PsychologistService implements PsychologistServiceInterface{
 	private final PsychologistDao psychologistDao;
 	
 	public PsychologistDto addPsychologist (PsychologistDto psychologistDto) {
