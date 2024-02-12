@@ -18,7 +18,7 @@ import com.kajucode.psichologist.controller.convert.ControllerConverter;
 import com.kajucode.psichologist.controller.dto.PsychologistCreationRequest;
 import com.kajucode.psichologist.controller.dto.PsychologistResponse;
 import com.kajucode.psichologist.controller.dto.PsychologistUpdateRequest;
-import com.kajucode.psichologist.service.PsychologistService;
+import com.kajucode.psichologist.service.PsychologistServiceInterface;
 import com.kajucode.psichologist.service.dto.PsychologistDto;
 
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/psychologist")
 public class PsychologistController {
-	private final PsychologistService psychologistService;
+	private final PsychologistServiceInterface psychologistServiceInterface;
 
 	@PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -41,11 +41,11 @@ public class PsychologistController {
 													.contractDate(psychologistCreationRequest.getContractDate())
 													.specialty(psychologistCreationRequest.getSpecialty())
 													.build();
-    	return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistService.addPsychologist(newPsychologistDto));
+    	return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistServiceInterface.addPsychologist(newPsychologistDto));
     } 
 	@GetMapping
     public List<PsychologistResponse> getAll() {
-        List<PsychologistDto> patients = psychologistService.getAll();
+        List<PsychologistDto> patients = psychologistServiceInterface.getAll();
         return patients.stream()
                 .map(ControllerConverter::convertPsychologistDtoToPsychologistResponse)
                 .collect(Collectors.toList());
@@ -53,17 +53,17 @@ public class PsychologistController {
 	
 	@GetMapping("/{id}")
     public PsychologistResponse getPsychologistById(@PathVariable int id) {
-        return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistService.getPsychologistById(id));
+        return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistServiceInterface.getPsychologistById(id));
     }
 	
 	@PutMapping("/{id}")
     public PsychologistResponse updatePsychologist(@PathVariable int id, @RequestBody PsychologistUpdateRequest psychologistUpdateRequest) {
 		PsychologistDto psychologistDto = ControllerConverter.convertPatientUpdatRequestToPatientDto(psychologistUpdateRequest);
-    	return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistService.updatePsychologist(id, psychologistDto));
+    	return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistServiceInterface.updatePsychologist(id, psychologistDto));
     }
 	@DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePsychologist(@PathVariable int idPsychologist) {
-        psychologistService.deletePsychologist(idPsychologist);
+        psychologistServiceInterface.deletePsychologist(idPsychologist);
     }
 }
