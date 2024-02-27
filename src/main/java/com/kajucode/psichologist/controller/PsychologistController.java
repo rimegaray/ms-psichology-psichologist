@@ -1,8 +1,5 @@
 package com.kajucode.psichologist.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +19,8 @@ import com.kajucode.psichologist.service.PsychologistServiceInterface;
 import com.kajucode.psichologist.service.dto.PsychologistDto;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,8 +30,9 @@ public class PsychologistController {
 
 	@PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PsychologistResponse addPsychologist (@RequestBody PsychologistCreationRequest psychologistCreationRequest) {
-    	PsychologistDto newPsychologistDto = PsychologistDto.builder().fullName(psychologistCreationRequest.getFullName())
+    public Mono<PsychologistResponse> addPsychologist (@RequestBody PsychologistCreationRequest psychologistCreationRequest) {
+    	PsychologistDto newPsychologistDto = PsychologistDto.builder()
+    												.fullName(psychologistCreationRequest.getFullName())
 													.dni(psychologistCreationRequest.getDni())
 													.age(psychologistCreationRequest.getAge())
 													.contactNumber(psychologistCreationRequest.getContactNumber())
@@ -41,29 +41,31 @@ public class PsychologistController {
 													.contractDate(psychologistCreationRequest.getContractDate())
 													.specialty(psychologistCreationRequest.getSpecialty())
 													.build();
-    	return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistServiceInterface.addPsychologist(newPsychologistDto));
+    	 return psychologistServiceInterface.addPsychologist(newPsychologistDto)
+                 .map(ControllerConverter::convertPsychologistDtoToPsychologistResponse);
     } 
 	@GetMapping
-    public List<PsychologistResponse> getAll() {
-        List<PsychologistDto> patients = psychologistServiceInterface.getAll();
-        return patients.stream()
-                .map(ControllerConverter::convertPsychologistDtoToPsychologistResponse)
-                .collect(Collectors.toList());
+    public Flux<PsychologistResponse> getAll() {
+		return psychologistServiceInterface.getAll()
+                .map(ControllerConverter::convertPsychologistDtoToPsychologistResponse);
     } 
 	
 	@GetMapping("/{id}")
-    public PsychologistResponse getPsychologistById(@PathVariable int id) {
-        return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistServiceInterface.getPsychologistById(id));
+    public Mono<PsychologistResponse> getPsychologistById(@PathVariable int id) {
+		 return psychologistServiceInterface.getPsychologistById(id)
+	                .map(ControllerConverter::convertPsychologistDtoToPsychologistResponse);
     }
 	
 	@PutMapping("/{id}")
-    public PsychologistResponse updatePsychologist(@PathVariable int id, @RequestBody PsychologistUpdateRequest psychologistUpdateRequest) {
-		PsychologistDto psychologistDto = ControllerConverter.convertPatientUpdatRequestToPatientDto(psychologistUpdateRequest);
-    	return ControllerConverter.convertPsychologistDtoToPsychologistResponse(psychologistServiceInterface.updatePsychologist(id, psychologistDto));
+    public Mono<PsychologistResponse> updatePsychologist(@PathVariable int id, @RequestBody PsychologistUpdateRequest psychologistUpdateRequest) {
+		 PsychologistDto psychologistDto = ControllerConverter.convertPsychologistUpdatRequestToPsychologistDto(psychologistUpdateRequest);
+	        return psychologistServiceInterface.updatePsychologist(id, psychologistDto)
+	                .map(ControllerConverter::convertPsychologistDtoToPsychologistResponse);
     }
+	
 	@DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePsychologist(@PathVariable int idPsychologist) {
-        psychologistServiceInterface.deletePsychologist(idPsychologist);
+    public Mono<Void> deletePsychologist(@PathVariable int idPsychologist) {
+        return psychologistServiceInterface.deletePsychologist(idPsychologist);
     }
 }

@@ -21,7 +21,7 @@ public class ControllerConverter {
 									.build();
 
 	}
-	public PsychologistDto convertPatientUpdatRequestToPatientDto (PsychologistUpdateRequest psychologistUpdateRequest) {
+	public PsychologistDto convertPsychologistUpdatRequestToPsychologistDto (PsychologistUpdateRequest psychologistUpdateRequest) {
         return PsychologistDto.builder().fullName(psychologistUpdateRequest.getFullName())
 				        			.dni(psychologistUpdateRequest.getDni())
 				        			.age(psychologistUpdateRequest.getAge())

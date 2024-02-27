@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.kajucode.psichologist.service.dto.PsychologistDto;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 public interface PsychologistServiceInterface{
-	PsychologistDto addPsychologist(PsychologistDto psychologistDto);
-    List<PsychologistDto> getAll();
-    PsychologistDto getPsychologistById(int psychologistId);
-    PsychologistDto updatePsychologist(int psychologistId, PsychologistDto psychologistDto);
-    void deletePsychologist(int psychologistId);
+	Mono<PsychologistDto> addPsychologist(PsychologistDto psychologistDto);
+    Flux<PsychologistDto> getAll();
+    Mono<PsychologistDto> getPsychologistById(int psychologistId);
+    Mono<PsychologistDto> updatePsychologist(int psychologistId, PsychologistDto psychologistDto);
+    Mono<Void> deletePsychologist(int psychologistId);
 	
 }
